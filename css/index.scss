@@ -1,0 +1,297 @@
+/* reset */
+body,ul,li,h1,h2,h3,h4,h5,h6,p{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+input{
+	border: none;
+	outline: none;
+    background: none;
+}
+a{
+	text-decoration: none;
+}
+div{
+    display: block;
+}
+body{
+	background: url(../images/bg.png) repeat;
+    font-family: Text-Light;
+}
+*{
+	box-sizing: border-box;
+}
+
+/* 字体 */
+@mixin font-generator ( $name,$font-name ){
+	$font-path: '../fonts/';
+	@font-face{
+		font-family: $name;
+		src: 
+		  local( $font-name ),
+		  url( $font-path + $font-name + '.woff') format('woff'),
+		  url( $font-path + $font-name + '.eot') format('eot'),
+		  url( $font-path + $font-name + '.ttf') format('ttf'),
+		  url( $font-path + $font-name + '.svg') format('svg');
+	}
+}
+@include font-generator ( 'Display-Light','SFNSDisplay-Light');
+@include font-generator ( 'Display-Numbers','SFNSDisplay-Ultralight-Numbers');
+@include font-generator ( 'Text-Light','SFNSText-Light');
+@include font-generator ( 'Text-Medium','SFNSText-Medium');
+
+/* 图片精灵 */
+$positions : (
+    'logo' : 0 -587px,
+    'add' : 0 -526px,
+    'naozhong' : -10px -370px,
+    'wlan' : -142px -497px,
+    'search' : -138px -358px,
+    'xiahei' : -55px -340px,
+	);
+@mixin bgposition ( $key ){
+	background: url(../images/bg1.png)  no-repeat map-get($positions,$key);
+}
+
+/* 左边列表颜色背景图 */
+$imgs : (
+    purple : -18px -572px,
+    green : -86px -572px,
+    blue : -69px -572px,
+    yellow : -35px -572px,
+    red : -103px -572px,
+    orange : -52px -572px,
+    brown : -134px -550px, 
+    );
+@each $img in map-keys($imgs){
+    .plan .#{$img}{
+        background: url(../images/bg1.png)  no-repeat map-get($imgs,$img);
+    }
+}
+
+/* 右边大字颜色 */
+$colors : (
+    purple : #CE78E2,
+    green : #69DC3B,
+    blue : #1CB0F8,
+    yellow : #F7CA00,
+    red : #FF2C6F,
+    orange : #FF8200,
+    brown :  #A48760,
+    );
+@each $color in map-keys($colors){
+    .content .#{$color}{
+        color: map-get($colors,$color);
+    }
+}
+
+/* 未完成背景图 */
+$shixiangs : (
+    purple : -66px -466px,
+    green : -44px -360px,
+    blue : -138px -168px,
+    yellow : -138px -268px,
+    red : -130px -402px,
+    orange : -2px -434px,
+    brown : -98px -434px,
+);
+@each $shixiang in map-keys($shixiangs){
+    .content .unfinished .circle.#{$shixiang}{
+         background: url(../images/bg1.png)  no-repeat map-get($shixiangs,$shixiang);
+    }
+}
+
+/* 已完成背景图 */
+$shixiangs : (
+    purple : -2px -466px,
+    green : -33px -403px,
+    blue : -75px -360px,
+    yellow : -138px -200px,
+    red : -64px -403px,
+    orange : -98px -467px,
+    brown : -34px -434px,
+);
+@each $shixiang in map-keys($shixiangs){
+    .content .completed .circle.#{$shixiang}{
+         background: url(../images/bg1.png)  no-repeat map-get($shixiangs,$shixiang);
+    }
+}
+
+%center{
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+    }
+
+/* 左边列表 */
+.lists{
+	width: 368px;
+    max-width: 500px;
+    background: #383836;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: #B4B4B3;
+    .list-title{
+    	width: 100%;
+    	height: 44px;
+    	line-height: 44px;
+    	border-bottom: 1px solid #1a1a1a;
+    	padding:0 10px;
+    	position: relative;
+    }
+    .list-title .logo{
+    	width: 56px;
+    	height: 18px;
+    	@extend %center;
+    	@include bgposition ( logo );
+    }
+    .list-title .remind{
+        text-align: center;
+        position: absolute;
+        left: 74px;
+        color: #999;
+        font-size: 21px;
+        cursor: default;
+        &:hover{
+        	color: #ddd;
+        }
+    }
+    .list-title .add{
+    	cursor: pointer;
+    	right: 10px;
+        width: 22px;
+        height: 22px;
+        @extend %center;
+        @include bgposition ( add );
+    }
+    .plan{
+    	width: 100%;
+    	height: 44px;
+    	line-height: 44px;
+    	padding-left: 54px;
+    	position: relative;
+    	color: #F0F0F0;
+    	font-size: 18px;
+    }
+    .plan span{
+        width: 15px;
+        height: 15px;
+        @extend %center;
+        &:nth-child(1){
+        	left: 22px;
+        }
+    }
+    .plan .icon{
+    	left: 18px;
+        width: 20px;
+        height: 20px;
+        @include bgposition ( naozhong );
+    }
+    .plan input{
+    	height: 44px;
+    	color: #F0F0F0;
+    	font-size: 18px;
+    }
+    .plan .border-1{
+    	position: absolute;
+    	left: 0;
+    	width: 100%;
+    	height: 2px;
+        background: url(../images/border.png);
+    }
+    .plan .border-2{
+    	width: 100%;
+    	height: 2px;
+        background: url(../images/border.png);
+    }
+    .plan-active{
+    	background: #2D2D2B;
+    }
+    .plan .border-2{
+    	position: absolute;
+    	left: 0;
+    	width: 100%;
+    	height: 2px;
+        background: url(../images/border.png);
+    }
+    .plan .wlan{
+    	width: 22px;
+    	height: 25px;
+    	right: 10px;
+    	opacity: .2;
+    	@include bgposition ( wlan );
+    }
+}
+
+/* 右边内容 */
+.content{
+   margin-left: 368px;
+   .header{
+      width: 100%;
+      height: 44px;
+      border-bottom: 1px solid #DADADA;
+      padding-left: 42px;
+      position: relative;
+   }
+   .header input{
+      height: 44px;
+      font-size: 20px;
+      color: #BABABA;
+   }
+   .header .search{
+      width: 25px;
+      height: 25px;
+      @extend %center;
+      left: 12px;
+      @include bgposition ( search );
+   }
+   ul li{
+      width: 100%;
+      border-bottom: 1px solid #e0e0e0;
+      line-height: 50px;
+      padding-left: 30px;
+   }
+   ul .title{
+      height: 75px;
+      line-height: 75px;
+   }
+   ul .title h1{
+      float: left;
+   }
+   ul .title .del{
+      float: right;
+      margin-right: 20px;
+      cursor: pointer;
+   }
+   .section{
+      padding-left: 45px;
+      position: relative;
+   }
+   .circle{
+      width: 30px;
+      height: 30px;
+      @extend %center;
+      left: 5px;
+   }
+  /*  .clear{
+     display: block;
+     float: right;
+     margin-right: 20px;
+     cursor: pointer;
+  } */
+  .wancheng{
+    display: block;
+    float: left;
+  }
+  .clear{
+     cursor: pointer;
+     display: block;
+     text-align: right;
+     margin-right: 20px;
+  }
+}
+

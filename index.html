@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="reminder">
+<head>
+	<meta charset="UTF-8">
+	<title>icloud</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body ng-controller="mainCtrl">
+	<div class="lists">
+	    <div class="list-title">
+	    	<div class="logo"></div>
+	    	<div class="remind">提醒事项</div>
+	    	<div class="add" ng-click="addList()"></div>
+	    </div>
+		<ul>
+			<li class="plan">
+				<span class="icon"></span>
+				已计划
+				<div class="border-1"></div>
+			</li>
+			<li class="plan" ng-repeat="v in list" ng-click="setCurrent($index)" ng-class="{'plan-active':v===currentList}">
+				<span ng-class="v.theme"></span>
+				<input type="text" value="v.name" ng-model="v.name">
+				<div class="border-2"></div>
+				<span class="wlan"></span>
+			</li>
+		</ul>
+	</div>
+	<div class="content">
+		<div class="header">
+		    <span class="search"></span>
+			<input type="text" placeholder="搜索所有提醒">
+			<div class="name"></div>
+		</div>
+		<ul>
+			<li class="title {{currentList.theme}}" ng-show="currentList">
+				<h1>{{currentList.name}}</h1>
+				<h3 class="del" ng-click="delete()">删除</h3>
+			</li>
+            <li class="completed">
+            	<h3 class="wancheng">已完成</h3>
+            	<span class="clear" ng-click="clearDone(currentList)">清除已完成事项</span>
+            	<div ng-show="v.state" class="section" ng-repeat="v in currentList.shixiang">
+            		<div ng-click="v.state=!v.state" class="circle {{currentList.theme}}"></div>
+					<input type="text" value="v.name" ng-model="v.name">
+            	</div>
+            </li>
+            <li class="unfinished">
+            	<h3>未完成</h3>
+            	<div ng-show="!v.state" class="section" ng-repeat="v in currentList.shixiang">
+            		<div ng-click="v.state=!v.state" class="circle {{currentList.theme}}"></div>
+					<input type="text" value="v.name" ng-model="v.name">
+            	</div>
+            </li>
+            <li class="newitem1"ng-click="newtodos(currentList.shixiang)">
+							<span class="name" >新项目...</span>
+						</li>
+		</ul>
+	</div>
+</body>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="js/index.js"></script>
+</html>
